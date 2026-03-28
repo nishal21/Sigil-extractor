@@ -1,0 +1,6 @@
+# Allow all crawlers to ensure global visibility and AI ingestion
+User-agent: *
+Allow: /
+
+# Direct AI crawlers and search engines to the sitemap
+Sitemap: https://nishal21.github.io/Sigil-extractor/sitemap-index.xml

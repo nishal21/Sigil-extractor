@@ -1,0 +1,131 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+	image?: string;
+}
+
+// Base path for GitHub Pages deployment
+const base = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL;
+
+const { 
+	title, 
+	description = "Sigil - An uncompromising offline engine to protect creators from unauthorized AI scraping. Your art, your legacy.",
+	image = `${base}/favicon.svg`
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const siteUrl = Astro.site ? Astro.site.toString() : 'https://nishal21.github.io';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+
+// Organization Schema for SEO Authority
+const schema = {
+	"@context": "https://schema.org",
+	"@type": "SoftwareApplication",
+	"name": "Sigil Engine",
+	"operatingSystem": "Windows, macOS, Linux",
+	"applicationCategory": "SecurityApplication",
+	"description": description,
+	"url": siteUrl + base,
+	"author": {
+		"@type": "Person",
+		"name": "Nishal K",
+		"url": "https://github.com/nishal21"
+	},
+	"offers": {
+		"@type": "Offer",
+		"price": "0",
+		"priceCurrency": "USD"
+	}
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+		<link rel="shortcut icon" href={`${base}/favicon.svg`} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | Sigil</title>
+		
+		<!-- SEO Fundamentals -->
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="robots" content="index, follow" />
+		
+		<!-- Open Graph / Social Media -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={`${title} | Sigil`} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, canonicalURL)} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonicalURL} />
+		<meta property="twitter:title" content={`${title} | Sigil`} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(image, canonicalURL)} />
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		
+		<!-- JSON-LD Structured Data for E-E-A-T -->
+		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+	</head>
+	<body>
+		<nav class="navbar">
+			<div class="container nav-inner">
+				<a href={`${base}/`} class="logo">
+					<img src={`${base}/favicon.svg`} alt="Sigil Logo" /> SIGIL
+				</a>
+				<div class="nav-links">
+					<a href={`${base}/`} class={currentPath === base + "/" || currentPath === base ? "accent" : ""}>HOME</a>
+					<a href={`${base}/features`} class={currentPath.includes("features") ? "accent" : ""}>FEATURES</a>
+					<a href={`${base}/about`} class={currentPath.includes("about") ? "accent" : ""}>ABOUT</a>
+					<a href={`${base}/download`} class={currentPath.includes("download") ? "accent" : ""}>DOWNLOAD</a>
+				</div>
+			</div>
+		</nav>
+
+		<main>
+			<slot />
+		</main>
+
+		<footer class="footer">
+			<div class="container">
+				<div class="footer-grid">
+					<div class="footer-brand">
+						<a href={`${base}/`} class="logo"><img src={`${base}/favicon.svg`} alt="Sigil Logo" loading="lazy" /> SIGIL</a>
+						<p>An uncompromising, fully offline desktop engine engineered to embed invisible cryptographic signatures into your pixels. Protect your intellectual property from AI scraping datasets.</p>
+					</div>
+					<div class="footer-links">
+						<h4>PLATFORM</h4>
+						<ul>
+							<li><a href={`${base}/features`}>Architecture</a></li>
+							<li><a href={`${base}/download`}>Download Setup</a></li>
+							<li><a href={`${base}/about`}>Creator Profile</a></li>
+						</ul>
+					</div>
+					<div class="footer-links">
+						<h4>OPEN SOURCE</h4>
+						<ul>
+							<li><a href="https://github.com/nishal21/Sigil-extractor" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+							<li><a href="https://github.com/nishal21/Sigil-extractor/releases" target="_blank" rel="noopener noreferrer">Release Notes</a></li>
+							<li><a href="https://github.com/nishal21/Sigil-extractor/issues" target="_blank" rel="noopener noreferrer">Report an Issue</a></li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="footer-bottom">
+					<p>&copy; {new Date().getFullYear()} Sigil Engine by Nishal K.</p>
+					<p><i class="fa-solid fa-lock"></i> BUILT WITH CRYPTOGRAPHIC PERMANENCE</p>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

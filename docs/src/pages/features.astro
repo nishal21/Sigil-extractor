@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Features & Architecture">
+	<section class="container features-page">
+		<header class="page-header">
+			<h1>ZERO COMPROMISE<br><span class="accent">ARCHITECTURE</span></h1>
+			<p>Designed for absolute security, cryptographic permanence, and optimal performance on local hardware.</p>
+		</header>
+
+		<!-- Horizontal List Layout (Replaces basic grids) -->
+		<div class="feature-list">
+			<article class="feature-row">
+				<div class="f-num">01</div>
+				<div class="f-content">
+					<h2>INVISIBLE WATERMARKING</h2>
+					<p>Embeds your identity directly into the image pixels using advanced cryptography. It does not alter visual quality, ensuring your master files stay pristine while remaining mathematically verifiable.</p>
+				</div>
+			</article>
+			
+			<article class="feature-row">
+				<div class="f-num">02</div>
+				<div class="f-content">
+					<h2>ANTI-AI SCRAPING NOISE</h2>
+					<p>Disrupts machine learning models from using your artwork in their training datasets. Sigil applies subtle noise patterns that are imperceptible to humans but entirely confusing to AI scrapers.</p>
+				</div>
+			</article>
+
+			<article class="feature-row">
+				<div class="f-num">03</div>
+				<div class="f-content">
+					<h2>RUST-POWERED BACKEND</h2>
+					<p>Process hundreds of high-resolution image files in seconds. Powered by a highly optimized, multithreaded local backend written in Rust, utilizing your machine's full capabilities without latency.</p>
+				</div>
+			</article>
+
+			<article class="feature-row">
+				<div class="f-num">04</div>
+				<div class="f-content">
+					<h2>100% OFFLINE ZERO-TRUST</h2>
+					<p>Sigil is a desktop-first application built on zero-trust principles. Your unreleased, private art never leaves your machine. No cloud sync, no tracking, no unexpected telemetry leaks.</p>
+				</div>
+			</article>
+		</div>
+	</section>
+</Layout>
+
+<style>
+.features-page {
+	padding: var(--space-xl) var(--space-m);
+}
+
+.page-header {
+	margin-bottom: var(--space-xl);
+	max-width: 800px;
+}
+
+.page-header h1 {
+	font-size: var(--step-5);
+	margin-bottom: var(--space-s);
+}
+
+.page-header p {
+	font-size: var(--step-1);
+	color: var(--text-muted);
+}
+
+.feature-list {
+	display: flex;
+	flex-direction: column;
+	border-top: 1px solid var(--border);
+}
+
+.feature-row {
+	display: grid;
+	grid-template-columns: 120px 1fr;
+	gap: var(--space-m);
+	padding: var(--space-l) 0;
+	border-bottom: 1px solid var(--border);
+	transition: background 0.3s ease, padding-left 0.3s ease;
+}
+
+.feature-row:hover {
+	padding-left: var(--space-s);
+	background: var(--bg-surface);
+}
+
+.f-num {
+	font-family: 'Space Grotesk', system-ui, sans-serif;
+	font-size: var(--step-3);
+	color: var(--accent);
+	font-weight: 700;
+	line-height: 1;
+}
+
+.f-content h2 {
+	font-size: var(--step-2);
+	margin-bottom: var(--space-s);
+}
+
+.f-content p {
+	color: var(--text-muted);
+	font-size: var(--step-0);
+	max-width: 70ch;
+}
+
+@media (max-width: 768px) {
+	.feature-row {
+		grid-template-columns: 1fr;
+		padding: var(--space-m) 0;
+	}
+	
+	.f-num {
+		margin-bottom: -1rem;
+	}
+}
+</style>

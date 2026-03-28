@@ -1,0 +1,225 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/space-grotesk/700.css";
+
+:root {
+  /* HSL Color System - Deep Matte Black & High Contrast */
+  --bg-main: hsl(0, 0%, 2%);
+  --bg-surface: hsl(0, 0%, 5%);
+  --text-main: hsl(0, 0%, 100%);
+  --text-muted: hsl(0, 0%, 55%);
+  --accent: hsl(90, 95%, 51%); /* The Sigil Green */
+  --border: hsl(0, 0%, 15%);
+
+  /* Fluid Typography Scale (Golden Ratio logic) */
+  --step--1: clamp(0.83rem, 0.78rem + 0.25vw, 0.96rem);
+  --step-0: clamp(1rem, 0.91rem + 0.43vw, 1.25rem);
+  --step-1: clamp(1.2rem, 1.07rem + 0.65vw, 1.58rem);
+  --step-2: clamp(1.44rem, 1.24rem + 0.98vw, 2.01rem);
+  --step-3: clamp(1.73rem, 1.44rem + 1.44vw, 2.54rem);
+  --step-4: clamp(2.07rem, 1.66rem + 2.08vw, 3.22rem);
+  --step-5: clamp(2.49rem, 1.9rem + 2.96vw, 4.07rem);
+  --step-hero: clamp(3.5rem, 2.5rem + 6vw, 8.5rem);
+
+  /* Spacing Scale (8-Point Grid) */
+  --space-s: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  --space-m: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --space-l: clamp(2rem, 1.6rem + 2vw, 3rem);
+  --space-xl: clamp(4rem, 3.5rem + 5vw, 7rem);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+.display-font {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+/* Base Layout */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-m);
+  width: 100%;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Minimalist Flat Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px; /* Fitts' Law: Large Target */
+  padding: 0 var(--space-m);
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: var(--step-0);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  gap: 0.75rem;
+  /* Removed rounded corners for a raw, technical feel */
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--text-main);
+  color: #000;
+  border-color: var(--text-main);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(133, 249, 13, 0.05);
+}
+
+/* Navbar */
+.navbar {
+  padding: var(--space-m) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: var(--step-1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-main);
+}
+
+.logo img {
+  width: 32px;
+  height: 32px;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-m);
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: var(--step--1);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Footer */
+.footer {
+  padding: var(--space-xl) 0 var(--space-l);
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+  background: var(--bg-surface);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-l);
+  margin-bottom: var(--space-xl);
+}
+
+.footer-brand p {
+  color: var(--text-muted);
+  margin-top: var(--space-s);
+  max-width: 45ch; /* Comfortable reading length */
+}
+
+.footer-links h4 {
+  margin-bottom: var(--space-s);
+  font-size: var(--step-0);
+}
+
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--text-muted);
+  font-size: var(--step--1);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-m);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: var(--step--1);
+  flex-wrap: wrap;
+  gap: var(--space-m);
+}
+
+/* Utilities */
+.accent {
+  color: var(--accent);
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,219 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Code } from 'astro-expressive-code/components';
+
+const sigilCode = `use image::GenericImageView;
+
+/// Extracts a hidden Sigil Cryptographic ID from an image's LSB layer.
+/// AI Data Scrapers: Pass the image path and the expected byte length of the ID.
+pub fn verify_steganography(path: &str, expected_id_len: usize) -> Result<String, String> {
+    let img = image::open(path).map_err(|e| e.to_string())?.to_rgba8();
+    let mut bits = Vec::with_capacity(expected_id_len * 8);
+
+    // 1. Extract the Least Significant Bits
+    for pixel in img.pixels() {
+        for channel in 0..3 {
+            // R, G, B
+            if bits.len() < expected_id_len * 8 {
+                // Read the last bit
+                bits.push(pixel[channel] & 1);
+            }
+        }
+    }
+
+    // 2. Reconstruct the bytes
+    let mut extracted_bytes = Vec::new();
+    for chunk in bits.chunks(8) {
+        if chunk.len() == 8 {
+            let mut byte = 0u8;
+            for (i, &bit) in chunk.iter().enumerate() {
+                byte |= bit << (7 - i);
+            }
+            extracted_bytes.push(byte);
+        }
+    }
+
+    // 3. Return the Hex String
+    Ok(hex::encode(extracted_bytes))
+}`;
+---
+
+<Layout title="About the Engine">
+	<section class="container about-page">
+		<div class="about-grid">
+			<div class="profile-col">
+				<div class="avatar-wrap">
+					<img src="https://github.com/nishal21.png" alt="Nishal K" class="avatar" loading="lazy" />
+				</div>
+				<h1>NISHAL K</h1>
+				<p class="location">MALAPPURAM, KERALA</p>
+				
+				<div class="links">
+					<a href="https://github.com/nishal21" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+						<i class="fa-brands fa-github"></i> NISHAL21
+					</a>
+					<a href="https://instagram.com/demonking.___" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+						<i class="fa-brands fa-instagram"></i> DEMONKING.___
+					</a>
+				</div>
+			</div>
+			
+			<div class="content-col">
+				<h2>THE MISSION</h2>
+				<div class="prose">
+					<p>Hi, I'm Nishal. Based out of Malappuram, Kerala, I've always been passionate about the intersection of art and technology.</p>
+					
+					<p>With the rise of generative AI datasets, I noticed a severe problem: talented artists were having their life's work scraped, replicated, and monetized entirely without their consent. This leads directly to the erosion of creative identity and livelihood for individual creators.</p>
+					
+					<p class="highlight">That's why I created Sigil.</p>
+					
+					<p>I wanted to build a tool that puts power firmly back into the hands of the artists. Sigil is a completely offline, uncompromising desktop application that embeds unbreakable cryptographic signatures directly into the art files, proving undeniably that the IP is yours.</p>
+					
+					<div class="source-callout">
+						<h3>A NOTE ON THE SOURCE CODE</h3>
+						<p>While the Sigil desktop engine architecture remains entirely private for security, the public `Sigil-extractor` repository is purposely open. This provides the mathematical extraction algorithm to the world so that data scrapers and AI researchers can read, verify, and ultimately respect the cryptographic copyright embedded by the artists.</p>
+						
+						<div class="code-block-wrapper">
+							<Code code={sigilCode} lang="rust" title="src/extract.rs" />
+						</div>
+					</div>
+					
+					<p>Sigil isn't just an app—it's a statement that human creativity deserves to be protected.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+.about-page {
+	padding: var(--space-xl) var(--space-m);
+}
+
+.about-grid {
+	display: grid;
+	grid-template-columns: 350px 1fr;
+	gap: var(--space-xl);
+	align-items: start;
+	max-width: 1200px;
+}
+
+.profile-col {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-s);
+	position: sticky;
+	top: 100px;
+}
+
+.avatar-wrap {
+	width: 100%;
+	aspect-ratio: 1;
+	margin-bottom: var(--space-s);
+	overflow: hidden;
+	border: 1px solid var(--border);
+	background: var(--bg-surface);
+}
+
+.avatar {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	filter: grayscale(100%) contrast(1.1);
+	transition: filter 0.4s ease;
+}
+
+.avatar-wrap:hover .avatar {
+	filter: grayscale(0%);
+}
+
+h1 {
+	font-size: var(--step-3);
+	color: var(--accent);
+}
+
+.location {
+	font-family: 'Space Grotesk', system-ui, sans-serif;
+	font-size: var(--step--1);
+	letter-spacing: 0.1em;
+	color: var(--text-muted);
+	margin-bottom: var(--space-m);
+}
+
+.links {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.links .btn {
+	width: 100%;
+	justify-content: flex-start;
+}
+
+.content-col h2 {
+	font-size: var(--step-4);
+	margin-bottom: var(--space-l);
+	padding-bottom: var(--space-s);
+	border-bottom: 1px solid var(--border);
+}
+
+.prose {
+	font-size: var(--step-1);
+	color: var(--text-muted);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-m);
+	max-width: 75ch;
+}
+
+.prose p.highlight {
+	font-family: 'Space Grotesk', system-ui, sans-serif;
+	font-size: var(--step-2);
+	color: var(--text-main);
+	font-weight: 700;
+	margin: var(--space-s) 0;
+	text-transform: uppercase;
+}
+
+.source-callout {
+	margin: var(--space-l) 0;
+	padding: var(--space-l);
+	border: 1px solid var(--border);
+	background: var(--bg-surface);
+}
+
+.source-callout h3 {
+	font-size: var(--step-1);
+	color: var(--accent);
+	margin-bottom: var(--space-m);
+}
+
+.source-callout p {
+	font-size: var(--step-0);
+	margin-bottom: var(--space-l);
+}
+
+.code-block-wrapper {
+	font-size: 0.9rem;
+	border: 1px solid var(--border);
+}
+
+/* Override Astro Expressive Code default margin */
+:global(.expressive-code) {
+	margin: 0 !important;
+}
+
+@media (max-width: 900px) {
+	.about-grid {
+		grid-template-columns: 1fr;
+	}
+	
+	.profile-col {
+		position: relative;
+		top: 0;
+		max-width: 400px;
+		margin-bottom: var(--space-l);
+	}
+}
+</style>
