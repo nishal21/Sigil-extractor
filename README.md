@@ -71,6 +71,8 @@ Supported Platforms:
 - **macOS** Apple Silicon & Intel (`.dmg`, `.app.tar.gz`)
 - **Linux** AMD64/x86_64 (`.deb`, `.rpm`, `AppImage`)
 
+  (NOTE : Use Run as Administrator for the first time and Generate the Identity and after that u can run as normal and protect your Images etc...)
+
 ## 🌐 Website Documentation
 The source code for the `https://nishal21.github.io/Sigil-extractor` documentation website is located in the `/docs` directory. It is built using [Astro](https://astro.build) with strict SEO and E-E-A-T guidelines applied.
 
